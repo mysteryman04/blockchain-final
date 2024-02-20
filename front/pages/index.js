@@ -4,6 +4,12 @@ import NFTBox from "../components/NFTBox"
 import networkMapping from "../constants/networkMapping.json"
 import GET_ACTIVE_ITEMS from "../constants/subgraphQueries"
 import { useQuery } from "@apollo/client"
+import Head from "next/head";
+import Image from "next/image";
+import Router from "next/router";
+import { ExploreBar, Main, Sidebar } from "../components";
+
+
 
 export default function Home() {
     const { chainId, isWeb3Enabled } = useMoralis()
@@ -14,6 +20,17 @@ export default function Home() {
 
     return (
         <div className="container mx-auto">
+            <div>
+                <Head>
+                    <title>Twitter</title>
+                    <link rel="icon" href="/twitter.png" />
+                </Head>
+                <div className="grid grid-cols-[25%,auto,30%] md:grid-cols-[15%,auto]  justify-items-stretch">
+                    <Sidebar />
+                    <Main />
+                    <ExploreBar />
+                </div>
+            </div>
             <h1 className="py-4 px-4 font-bold text-2xl">Recently Listed</h1>
             <div className="flex flex-wrap">
                 {isWeb3Enabled && chainId ? (

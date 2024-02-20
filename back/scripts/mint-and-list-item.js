@@ -15,12 +15,12 @@ async function mintAndList() {
     console.log("Minting NFT...")
     const mintTx = await basicNft.mintNft()
     const mintTxReceipt = await mintTx.wait(1)
-    const tokenId = mintTxReceipt.events[0].args.tokenId
+    const tokenId = mintTxReceipt.logs[0].args.tokenId
     console.log("Approving NFT...")
-    const approvalTx = await basicNft.approve(nftMarketplace.address, tokenId)
+    const approvalTx = await basicNft.approve(nftMarketplace.getAddress(), tokenId)
     await approvalTx.wait(1)
     console.log("Listing NFT...")
-    const tx = await nftMarketplace.listItem(basicNft.address, tokenId, PRICE)
+    const tx = await nftMarketplace.listItem(basicNft.getAddress(), tokenId, PRICE)
     await tx.wait(1)
     console.log("NFT Listed!")
     if (network.config.chainId == 31337) {
